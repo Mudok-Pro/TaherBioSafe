@@ -1,0 +1,70 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ─── Public Access ──────────────────────────────────────
+    match /public/{document=**} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // ─── Authenticated Users ──────────────────────────────────
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // ─── Role-Based Access Control ────────────────────────────
+    function getRole(role) {
+      // This function checks the requesting user's role from their document.
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == role;
+    }
+
+    // ─── User Profile Access ─────────────────────────────────
+    match /users/{userId} {
+      // ✅ FIX: Allow users with the 'admin' role to read the whole collection.
+      allow list: if isAuthenticated() && getRole('admin');
+      
+      // Allow a user to read/update their own profile, or an admin to read/update any profile.
+      allow read, update: if isAuthenticated() && (request.auth.uid == userId || getRole('admin'));
+      
+      allow create: if isAuthenticated();
+      // Note: No delete rule is specified. Add one if needed.
+      // allow delete: if getRole('admin'); 
+    }
+
+    // ─── Customer-Specific Collections ───────────────────────
+    match /customers/{customerId}/{collection}/{document} {
+      allow read, write: if isAuthenticated() && getRole('customer') && request.auth.uid == customerId;
+    }
+
+    // ─── Admin Access ────────────────────────────────────────
+    match /admin/{document=**} {
+      allow read, write: if isAuthenticated() && getRole('admin');
+    }
+
+    // ─── Contracts Collection ───────────────────────────────
+    match /contracts/{contractId} {
+      allow read: if isAuthenticated(); // All authenticated users can read contracts
+      allow create: if isAuthenticated() && getRole('customer'); // Customers can create contracts
+      allow update: if isAuthenticated() && getRole('admin'); // Admins can update contracts
+    }
+    
+    // ─── Pickups Collection ─────────────────────────────────
+    match /pickups/{pickupId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated() && getRole('customer');
+      allow update: if isAuthenticated() && (getRole('admin') || getRole('driver'));
+    }
+
+    // ─── Incineration Reports ──────────────────────────────
+    match /incineration-reports/{reportId} {
+      allow read, write: if isAuthenticated() && getRole('admin');
+    }
+
+    // ─── Fallback (This rule is not needed and can be removed) ─────
+    // Your rules are exhaustive, so a final "deny all" is implicit.
+    // match /{document=**} {
+    //   allow read, write: if false;
+    // }
+  }
+}

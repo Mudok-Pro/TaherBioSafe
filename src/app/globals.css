@@ -1,0 +1,110 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 94.1%; /* Light gray #F0F0F0 */
+    --foreground: 210 10% 23%; /* Dark gray for text */
+
+    --card: 0 0% 100%; /* White */
+    --card-foreground: 210 10% 23%; /* Dark gray for text on card */
+
+    --popover: 0 0% 100%; /* White */
+    --popover-foreground: 210 10% 23%; /* Dark gray for text on popover */
+
+    --primary: 180 100% 25.1%; /* Deep teal #008080 */
+    --primary-foreground: 0 0% 98%; /* Light gray / White */
+
+    --secondary: 0 0% 90%; /* Slightly darker gray than background */
+    --secondary-foreground: 180 100% 25.1%; /* Deep teal for text on secondary */
+
+    --muted: 0 0% 85%; /* Muted gray */
+    --muted-foreground: 0 0% 45.1%; /* Muted text */
+
+    --accent: 145 58.3% 54.5%; /* Emerald green #50C878 */
+    --accent-foreground: 0 0% 100%; /* White for text on accent */
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 85%; /* Border color */
+    --input: 0 0% 85%; /* Input border */
+    --ring: 180 100% 25.1%; /* Ring color (Deep teal) */
+
+    --radius: 0.5rem;
+
+    /* Chart colors - can be adjusted if specific charts are built */
+    --chart-1: 180 100% 25.1%; /* Deep teal */
+    --chart-2: 145 58.3% 54.5%; /* Emerald green */
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+
+    /* Sidebar specific theme */
+    --sidebar-background: 210 15% 15%; /* Darker sidebar background */
+    --sidebar-foreground: 0 0% 90%; /* Light gray for sidebar text */
+    --sidebar-primary: 145 58.3% 54.5%; /* Emerald green for active/hover items */
+    --sidebar-primary-foreground: 0 0% 100%; /* White for text on sidebar primary */
+    --sidebar-accent: 210 15% 25%; /* Slightly lighter than sidebar bg for hover */
+    --sidebar-accent-foreground: 0 0% 98%; /* Light gray for text on sidebar accent */
+    --sidebar-border: 210 15% 30%; /* Border color within sidebar */
+    --sidebar-ring: 145 58.3% 54.5%; /* Emerald green for focus rings */
+  }
+
+  .dark {
+    --background: 210 10% 10%; /* Dark background for dark mode */
+    --foreground: 0 0% 90%; /* Light gray text */
+
+    --card: 210 10% 15%; /* Dark card */
+    --card-foreground: 0 0% 90%;
+
+    --popover: 210 10% 15%;
+    --popover-foreground: 0 0% 90%;
+
+    --primary: 180 100% 35%; /* Slightly lighter Deep teal for dark mode */
+    --primary-foreground: 0 0% 98%;
+
+    --secondary: 210 10% 20%;
+    --secondary-foreground: 180 100% 35%;
+
+    --muted: 210 10% 25%;
+    --muted-foreground: 0 0% 60%;
+
+    --accent: 145 58.3% 60%; /* Slightly lighter Emerald green for dark mode */
+    --accent-foreground: 0 0% 10%; /* Dark text on accent */
+
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 210 10% 25%;
+    --input: 210 10% 25%;
+    --ring: 180 100% 35%;
+
+    --chart-1: 180 100% 35%;
+    --chart-2: 145 58.3% 60%;
+    
+    /* Sidebar specific theme for dark mode */
+    --sidebar-background: 210 10% 5%; /* Even darker sidebar for dark mode */
+    --sidebar-foreground: 0 0% 80%;
+    --sidebar-primary: 145 58.3% 60%;
+    --sidebar-primary-foreground: 0 0% 10%;
+    --sidebar-accent: 210 10% 12%;
+    --sidebar-accent-foreground: 0 0% 90%;
+    --sidebar-border: 210 10% 20%;
+    --sidebar-ring: 145 58.3% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
