@@ -34,4 +34,4 @@ Data is stored in Firebase → users interact through dashboard → updates refl
 Firebase configuration removed for security reasons. Available upon request.
 
 ## 👨‍💻 Author
-Nassereddine Djediat
+Nacereddine Djedaiet
