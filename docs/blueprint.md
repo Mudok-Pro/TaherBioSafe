@@ -1,4 +1,4 @@
-# **App Name**: AshSync
+# **App Name**: TaherBioSafe
 
 ## Core Features:
 
